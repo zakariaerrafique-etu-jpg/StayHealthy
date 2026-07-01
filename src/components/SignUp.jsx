@@ -12,6 +12,15 @@ function SignUp() {
     password: "",
     confirmPassword: ""
   });
+  localStorage.setItem(
+  "user",
+  JSON.stringify({
+    fullName: formData.fullName,
+    email: formData.email
+  })
+);
+
+navigate("/");
 
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");

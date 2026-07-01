@@ -1,25 +1,35 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import "../styles/search.css";
 
-function FindDoctorSearch({ doctors }) {
-  const [result, setResult] = useState([]);
+function FindDoctorSearch({ doctors = [], onSearch }) {
+  const [keyword, setKeyword] = useState("");
 
-  const search = (text) => {
-    setResult(
-      doctors.filter((d) =>
-        d.speciality.toLowerCase().includes(text.toLowerCase())
-      )
-    );
+  const handleSearch = (value) => {
+    setKeyword(value);
+
+    const filteredDoctors = doctors.filter((doctor) => {
+      const search = value.toLowerCase();
+
+      return (
+        doctor.name.toLowerCase().includes(search) ||
+        doctor.speciality.toLowerCase().includes(search) ||
+        doctor.location.toLowerCase().includes(search)
+      );
+    });
+
+    onSearch(filteredDoctors);
   };
 
   return (
-    <div>
-      <input placeholder="Search doctor" onChange={(e) => search(e.target.value)} />
-      {result.map((d, i) => (
-        <p key={i}>{d.name} - {d.speciality}</p>
-      ))}
+    <div className="search-container">
+      <input
+        type="text"
+        placeholder="Search by doctor, speciality or location..."
+        value={keyword}
+        onChange={(e) => handleSearch(e.target.value)}
+      />
     </div>
   );
 }
 
 export default FindDoctorSearch;
-

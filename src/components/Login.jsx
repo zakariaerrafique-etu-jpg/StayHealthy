@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 
 
-localStorage.setItem(
-  "user",
-  JSON.stringify({
-    email: formData.email
-  })
-);
 
-navigate("/");
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +13,14 @@ function Login() {
     });
   };
   
+  localStorage.setItem(
+  "user",
+  JSON.stringify({
+    email: formData.email
+  })
+);
+
+navigate("/");
 
   return (
     <div>
